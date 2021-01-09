@@ -1,0 +1,156 @@
+body{
+    margin: 0;
+    background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+    overflow-y: hidden;
+}
+
+.cityWallpaper{
+    height: 130%;
+    width: 500%;
+    background: url('img/city\ background.png');
+    display: block;
+    position: absolute;
+    bottom: 3%;
+    left: 0%;
+    background-repeat: repeat-x;
+}
+
+.night{
+    height: 80vh;
+    width: 70vw;
+    border: 1px solid black;
+    margin: 5rem auto;
+    background-size: cover;
+    position: relative;
+    box-shadow: 1px 2px 60px rgba(0, 0, 0, 0.4);
+    overflow-x: hidden;
+}
+
+.surface{
+    height: 140px;
+    width: 500%;
+    background: url('img/Img_02.png');
+    display: block;
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+    background-repeat: repeat-x;
+
+}
+
+.car{
+    position: absolute;
+    bottom: 8%;
+    left: 24%;
+}
+
+.turnLeftLight{
+    width: 1.8%; 
+    z-index: 2; 
+    position: absolute; 
+    top: 7.5%; 
+    left: 18.5%;
+}
+
+.turnRightLight{
+    width: 1.8%; 
+    z-index: 2; 
+    position: absolute; 
+    top: 7.5%; 
+    left: 29.9%;
+}
+
+.handBrake{
+    width: 1.99%; 
+    z-index: 2; 
+    position: absolute; 
+    top: 7.17%; 
+    left: 24.15%;
+}
+
+
+/* animation */
+
+@keyframes moveRight{
+    100%{transform: translateX(-2950px)}
+}
+
+@keyframes wall{
+    100%{transform: translateX(-2950px)}
+}
+
+@keyframes suspension{
+    100%{transform: translateY(-1px);}
+    50%{transform: translateY(2px);}
+    0%{transform: translateY(-1px);}
+
+}
+
+@keyframes Lights {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.moveRight{
+    animation: moveRight 6s linear infinite;
+}
+/* .moveRight2{
+    animation: moveRight 5s linear infinite;
+}
+.moveRight3{
+    animation: moveRight 4s linear infinite;
+}
+.moveRight4{
+    animation: moveRight 3s linear infinite;
+}
+.moveRight5{
+    animation: moveRight 2s linear infinite;
+}
+.moveRight6{
+    animation: moveRight 1s linear infinite;
+} */
+.cityWallpaperAnimation{
+    animation: wall 45s linear infinite;
+}
+/* .cityWallpaperAnimation2{
+    animation: wall 40s linear infinite;
+}
+.cityWallpaperAnimation3{
+    animation: wall 35s linear infinite;
+}
+.cityWallpaperAnimation4{
+    animation: wall 30s linear infinite;
+}
+.cityWallpaperAnimation5{
+    animation: wall 25s linear infinite;
+}
+.cityWallpaperAnimation6{
+    animation: wall 20s linear infinite;
+} */
+.suspension{
+    animation: suspension 1s linear infinite;
+}
+.paused{
+    -webkit-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+    -o-animation-play-state:paused; 
+    animation-play-state:paused;
+}
+
+.LightsAnimation{
+    animation: Lights 5s normal infinite;
+}
+
