@@ -1,5 +1,5 @@
 'use strict';
-import { ranNum } from './functions.js';
+import { ranNum, arrivalsGenerator } from './functions.js';
 let surface = document.getElementById('surface').classList;
 let car = document.getElementById('car').classList;
 let cjaCambios = document.getElementById('caja_de_cambios');
@@ -43,7 +43,7 @@ export default class Car {
         surface.add('paused');
         cityWall.add('paused')
     }
-    async Accelerate() {
+    Accelerate() {
         if (car.contains('suspension')) {
             if (handBrake.contains('LightsAnimation')) {
                 alert('Primero debes de quitar el freno de mano para poder arrancar')
@@ -86,73 +86,60 @@ export default class Car {
         handBrake.toggle('LightsAnimation');
     }
     Destiny() {
-        arrivals = ranNum(1, 3);
+        arrivals = ranNum(1, 4);
         distance = ranNum(1, 50);
         arrivalsTime = [ranNum(1, 5), ranNum(1, 5), ranNum(1, 5)];
         destiny.innerText = `el destino esta a ${distance} KM y se haran ${arrivals} paradas`;
 
+        let arrivalsDistance = arrivalsGenerator(arrivals, distance);
 
-
-        let arrival1 = 0; let arrival2 = 0; let arrival3 = 0;
-
-
-
-
-        if (arrivals == 3) {
-            console.log('arrivals 3');
-            arrival1 = Math.floor(distance / ranNum(2, 5));
-            arrival2 = Math.floor((distance - arrival1) / ranNum(2, 5));
-            arrival3 = Math.floor(((distance - arrival1) - arrival2) / ranNum(2, 5));
-        } else if (arrivals == 2) {
-            arrival1 = Math.floor(distance / ranNum(2, 5));
-            arrival2 = Math.floor((distance - arrival1) / ranNum(2, 5));
-        } else {
-            arrival1 = Math.floor(distance / ranNum(2, 5));
-        }
         console.log(distance);
-        console.log('parada 1 ' + arrival1);
-        console.log('parada 2 ' + arrival2);
-        console.log('parada 3 ' + arrival3);
-        var Paused;
-        let i = 0;
+        console.log('parada 1 ' + arrivalsDistance[0]);
+        console.log('parada 2 ' + arrivalsDistance[1]);
+        console.log('parada 3 ' + arrivalsDistance[2]);
 
-
-        var timer = setInterval(async () => {
-            destiny.innerText = `el destino esta a ${distance} KM y se haran ${arrivals} paradas`;
-            if (distance <= 0) {
-                checker = 0;
-                destiny.innerText = 'has llegado!'
-                surface.add('paused');
-                cityWall.add('paused');
-                clearInterval(timer);
-            }
-
-
-
-
-            else if (arrival1 != 0 && arrival1 == distance || arrival2 != 0 && arrival2 == distance) {
-                destiny.innerText = 'has llegado a una de tus paradas!'
-                surface.add('paused');
-                cityWall.add('paused');
-
-                function segs() {
-                    return new Promise(function (Resolve) {
-                        setTimeout(function () { Resolve(false); }, arrivalsTime[i] * 1000);
-                    });
+        stops();
+        async function stops() {
+            var bSalir = false;
+            let i = 0;
+            while (!bSalir) {
+                await waitOneSecond();
+                destiny.innerText = `el destino esta a ${distance} KM y se haran ${arrivals} paradas`;
+                if (distance <= 0) {
+                    checker = 0;
+                    destiny.innerText = 'has llegado!'
+                    surface.add('paused');
+                    cityWall.add('paused');
+                    return bSalir = true;
                 }
-                Paused = await segs();
-
-                surface.remove('paused');
-                cityWall.remove('paused');
-
-                console.log('repetidoooooo');
+                else if (arrivalsDistance[0] != 0 && arrivalsDistance[0] == distance || arrivalsDistance[1] != 0 && arrivalsDistance[1] == distance || arrivalsDistance[2] != 0 && arrivalsDistance[2] == distance) {
+                    destiny.innerText = 'has llegado a una de tus paradas!'
+                    surface.add('paused');
+                    cityWall.add('paused');
+                    await segsEsperaParada(i);
+                    i++;
+                    surface.remove('paused');
+                    cityWall.remove('paused');
+                }
+                distance--;
             }
+            return bSalir;
+        }
 
-
-
-
-            distance--;
-
-        }, 1000);
+        function waitOneSecond() {
+            return new Promise(Resolve => {
+                setTimeout(() => {
+                    Resolve(false);
+                }, 1000);
+            });
+        }
+        function segsEsperaParada(indice) {
+            let tiempo = arrivalsTime[indice] * 1000;
+            return new Promise(Resolve => {
+                setTimeout(() => {
+                    Resolve(false)
+                }, tiempo);
+            });
+        }
     }
 }

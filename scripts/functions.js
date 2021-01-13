@@ -18,3 +18,19 @@ export function carColor() {
 export function ranNum(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
+export function arrivalsGenerator(arrivals, distance) {
+    let arrival1 = 0; let arrival2 = 0; let arrival3 = 0;
+    if (arrivals == 3) {
+        arrival1 = Math.floor(ranNum(distance / 2, distance));
+        arrival2 = Math.floor(ranNum(arrival1 / 2, arrival1));
+        arrival3 = Math.floor(ranNum(arrival2 / 2, arrival2));
+    } else if (arrivals == 2) {
+        arrival1 = Math.floor(ranNum(distance / 2, distance));
+        arrival2 = Math.floor(ranNum(arrival1 / 2, arrival1));
+    } else {
+        arrival1 = Math.floor(ranNum(distance / 2, distance));
+    }
+    let arrivalsDistance = [arrival1, arrival2, arrival3];
+    return arrivalsDistance;
+}
