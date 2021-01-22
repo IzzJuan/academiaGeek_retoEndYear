@@ -14,7 +14,8 @@ export default class Car {
         this.color = color
     }
     Start() {
-        if (cjaCambios.src === 'http://127.0.0.1:5500/img/caja_de_cambios/automatico/n.png') {
+        if (cjaCambios.src.includes('/img/caja_de_cambios/automatico/n.png')) {
+            console.log(cjaCambios.src.includes('/img/caja_de_cambios/automatico/n.png'));
             //cambiar la direccion al momento de hacer el deploy
             if (!car.contains('suspension')) {
                 car.add('suspension');
@@ -48,7 +49,7 @@ export default class Car {
             if (handBrake.contains('LightsAnimation')) {
                 alert('Primero debes de quitar el freno de mano para poder arrancar')
             } else {
-                if (cjaCambios.src === 'http://127.0.0.1:5500/img/caja_de_cambios/automatico/n.png') {
+                if (cjaCambios.src.includes('/img/caja_de_cambios/automatico/n.png')) {
                     alert('Para acelerar debes de llevar el auto al primer cambio')
                 } else if (!cityWall.contains('cityWallpaperAnimation') || cityWall.contains('paused')) {
                     surface.remove('paused');
@@ -68,7 +69,7 @@ export default class Car {
     Gearbox(cambio) {
         cambio = parseInt(cambio, 10)
         cjaCambios.src = gearBox[cambio - 1];
-        if (cjaCambios.src === 'http://127.0.0.1:5500/img/caja_de_cambios/automatico/n.png' && surface.contains('moveRight')) {
+        if (cjaCambios.src.includes('/img/caja_de_cambios/automatico/n.png') && surface.contains('moveRight')) {
             this.Stop();
             car.remove('suspension')
         }
