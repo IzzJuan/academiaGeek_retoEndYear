@@ -5,7 +5,8 @@
   "main": "magic.js",
   "scripts": {
     "dev": "nodemon ",
-    "start": "nodemon "
+    "start": "nodemon ",
+    "now:deploy": "now"
   },
   "repository": {
     "type": "git",
